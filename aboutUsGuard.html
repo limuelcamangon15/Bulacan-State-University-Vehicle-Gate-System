@@ -1,0 +1,508 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body, html{
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: linear-gradient(135deg,rgb(10, 14, 23),rgb(66, 90, 131));
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover; 
+        color: #ffffff;
+    }
+
+
+    .navbar {
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg,rgb(10, 15, 28),rgb(34, 46, 66));
+        padding: 12px 25px 12px 12px;
+        transition: margin-left 1s ease-in-out;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar .logo {
+        color: #facc15;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-right: auto;
+    }
+
+    .navbar ul {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        font-weight: 600;
+    }
+
+    .navbar ul li {
+        position: relative;
+        margin: 0 12px;
+        transition: all 0.3s ease;
+    }
+
+    .navbar ul li a {
+        color: #f1f5f9;
+        text-decoration: none;
+        padding: 10px 16px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+
+    .navbar ul li a:hover {
+        background-color: rgba(250, 204, 21, 0.15);
+        color: #facc15;
+        transform: scale(1.05);
+    }
+
+    .navbar ul li:hover {
+        transform: translateY(5px) scale(1.05);
+    }
+
+    .dropdown {
+        display: none;
+        position: absolute;
+        background: #1e293b;
+        min-width: 140px;
+        z-index: 1;
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        margin-top: 8px;
+    }
+
+    .dropdown a {
+        display: block;
+        color: #f1f5f9;
+        text-decoration: none;
+        padding: 10px 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .dropdown a:hover {
+        background-color: #475569;
+        color: #facc15;
+    }
+
+    .navbar ul li:hover .dropdown {
+        display: block;
+    }
+
+    .main-content {
+      padding: 80px 20px 20px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 2.3rem;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #facc15;
+    }
+
+    .about-section {
+      background-color: rgba(30, 41, 59, 0.8);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    }
+
+    .about-section h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: #93c5fd;
+      justify-self: center;
+    }
+
+    .about-section p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #e2e8f0;
+    }
+
+    .features {
+      margin-top: 30px;
+    }
+
+    .features ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .features li {
+      margin-bottom: 12px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .features li::before {
+      content: "✔";
+      color: #10b981;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      .about-section h2 {
+        font-size: 1.5rem;
+      }
+
+      .about-section {
+        padding: 20px;
+      }
+    }
+
+
+    .active-nav {
+        background-color: #facc15;
+        color: #0f172a !important;
+        font-weight: bold;
+        box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.4);
+    }
+    
+    #navBtn {
+        display: none;
+        position: fixed;
+        top: -6rem;
+        width: 2.5rem;
+        height: 3rem;
+        background-color: transparent;
+        border: none;
+        color: #93c5fd;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: color 0.3s ease, transform 0.2s ease;
+        z-index: 1001;
+    }
+
+    #navBtn:hover {
+        color: #60a5fa;
+        transform: scale(1.1);
+    }
+
+
+    @media (max-width: 1380px){
+            #navBtn{
+                margin-top: 6rem;
+            } 
+
+            .navbar{
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 780px) {
+
+            .main-container{
+                margin-top: 0;
+            }
+
+            #navBtn{
+                display: block;
+            }
+
+            .navbar{
+                margin-left: -300px;
+                height: 100%;
+                width: 35%;
+                position: absolute;
+                flex-wrap: wrap;
+                flex-direction: column;
+                z-index: 999;
+            }           
+            
+            .navbar .logo {
+                color: white;
+                font-family: impact;
+                margin-bottom: 2rem;
+            }
+            .navbar ul {
+                display: flex;
+                flex-direction: column;
+                gap: 2em;
+                justify-content: left;
+                list-style: none;
+                font-weight: bold;
+            }
+            .navbar ul li a {
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+            }
+            .navbar ul li a:hover {
+                background-color: #444; 
+            }
+            .dropdown {
+                margin-top: 0.5em;       
+            }
+            .dropdown a {
+                display: block;
+                margin-top: 0.5rem;
+                color: white;
+                text-decoration: none;
+            }
+            .dropdown a:hover {
+                background-color: #444; 
+            }
+            .navbar ul li:hover .dropdown {
+                display: block;
+            }
+
+
+
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            thead tr {
+                display: none;
+            }
+
+            td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                font-weight: bold;
+                text-align: left;
+            }
+
+            .action-btns {
+                display: flex;
+                justify-content: center;
+                gap: 5px;
+            }
+
+            .filter-section {
+              align-items: center;
+            }
+
+            select {
+                width: 80%;
+            }
+        }
+
+
+        .developer-section {
+          margin-top: 40px;
+          background-color: rgba(15, 23, 42, 0.8);
+          padding: 30px;
+          border-radius: 15px;
+          box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 50px;
+        }
+
+        .developer-section h2 {
+          font-size: 1.8rem;
+          margin-bottom: 20px;
+          color: #38bdf8;
+          text-align: center;
+        }
+
+        .developer-content {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 20px;
+        }
+
+        .developer-content img {
+          width: 140px;
+          height: 140px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 3px solid #38bdf8;
+        }
+
+        .developer-info {
+          flex: 1;
+          color: #e2e8f0;
+        }
+
+        .developer-info p {
+          margin: 8px 0;
+          font-size: 1rem;
+        }
+
+        .social-links {
+          margin-top: 12px;
+        }
+
+        .social-links a {
+          color: #f1f5f9;
+          font-size: 1.5rem;
+          margin-right: 12px;
+          transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+          color: #38bdf8;
+        }
+
+        @media (max-width: 600px) {
+          .developer-content {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+
+          .developer-content img {
+            margin-bottom: 15px;
+          }
+        }
+
+        
+
+  </style>
+</head>
+<body>
+
+  <button onclick="showNav()" id="navBtn">☰</button>
+
+  <div class="navbar" id="navbar">
+    <div class="logo">
+      <img>
+    </div>
+    <ul>
+        <li><a href="dashboardGuard.php"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+        <li><a href="accountsGuardAccess.php"><i class="fas fa-users-cog"></i> Accounts</a></li>
+        <li><a href="profilesGuardAccess.php" ><i class="fas fa-id-card"></i> Profiles</a></li>
+        <li><a href="campusesGuardAccess.php"><i class="fas fa-university"></i> Campuses</a></li>
+        <li><a href="gatesGuardAccess.php"><i class="fas fa-door-open"></i> Gates</a></li>
+        <li><a href="vehicleGuardAccess.php"><i class="fas fa-car"></i> Vehicles</a></li>
+        <li><a href="gatesGuardAccessLogs.php"><i class="fas fa-shield-alt"></i> Logs/Access</a></li>
+        <li>
+        <a><i class="fas fa-cog"></i> Settings</a>
+        <div class="dropdown">
+        <a href="accountGuard.php"><i class="fas fa-user"></i> Account</a>
+            <a href="profileGuard.php"><i class="fas fa-user-circle"></i> Profile</a>
+            <a href="aboutUsGuard.html"   class="active-nav"><i class="fas fa-info-circle"></i> About</a>
+            <a href="contactUsGuard.html"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="index.php"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+        </div>
+        </li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <h1>About Vehicle Gate System</h1>
+
+    <br>
+
+    <div class="about-section">
+      <h2>Vehicle Gate Management System</h2>
+      <p>
+        Vehicle Gate System is designed to streamline and secure the flow of vehicles in and out of various campus or facility gates. Whether you are a vehicle owner, guard, or admin, this platform provides seamless access logs, real-time monitoring, and detailed reports to enhance operational efficiency and safety.
+      </p>
+
+      <div class="features">
+        <h2>Key Features</h2>
+        <ul>
+          <li>Real-time Entry/Exit Tracking</li>
+          <li>Secure Gate Access Logs</li>
+          <li>Vehicle Management</li>
+          <li>Account Management</li>
+          <li>Gate Management</li>
+          <li>Campus Management</li>
+          <li>Multi-Campus Gate Support</li>
+          <li>Responsive Dashboard for Analytics</li>
+          <li>Role-based Access for Admins, Vehicle Owners, and Guards</li>
+        </ul>
+      </div>
+
+      <h2>Our Mission</h2>
+      <p>
+        To provide a secure, efficient, and user-friendly platform that enables facility administrators and vehicle owners to manage and track vehicle movements with confidence.
+      </p>
+    </div>
+
+
+    <hr style="margin: 40px 0; border: 1px solid #334155;">
+
+    <div class="developer-section">
+      <h2>The Developer</h2>
+      <div class="developer-content">
+        <img src="myPhoto/1x1pic.jpg" alt="Developer Photo">
+        <div class="developer-info">
+          <p><strong>Name:</strong> Limuel M. Camangon</p>
+          <p><strong>Email:</strong> limuelmartincamangon@gmail.com</p>
+          <p><strong>Contact No:</strong> 09363822369</p>
+          <div class="social-links">
+            <a href="https://facebook.com/lims.1506" target="_blank"><i class="fab fa-facebook-square"></i></a>
+            <a href="https://instagram.com/limmzzzzz" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:limuelmartincamangon@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  
+
+    <script>
+        listenToScreenSize();
+        
+        function showNav(){
+            const navBar = document.getElementById('navbar');
+
+            navBar.style.marginLeft = '0px';
+            document.body.addEventListener('click', closeNavOnClickOutside);
+        }
+
+        function closeNavOnClickOutside(e) {
+            const navBar = document.getElementById('navbar');
+            const navBtn = document.getElementById('navBtn');
+
+            if (!navBar.contains(e.target) && e.target !== navBtn) {
+                navBar.style.marginLeft = '-300px';
+
+                
+                document.body.removeEventListener('click', closeNavOnClickOutside);
+            }
+        }
+
+        function listenToScreenSize() {
+            const navBar = document.getElementById('navbar');
+
+            function handleResize() {
+                if (window.innerWidth >= 781) {
+                    navBar.style.marginLeft = '0px';
+                }
+                else{
+                    navBar.style.marginLeft = '-300px';
+                }
+            }
+
+            handleResize();
+
+            window.addEventListener('resize', handleResize);
+        }
+    </script>
+
+</body>
+</html
