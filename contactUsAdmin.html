@@ -1,0 +1,447 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body, html{
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: linear-gradient(135deg,rgb(10, 14, 23),rgb(66, 90, 131));
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover; 
+        color: #ffffff;
+    }
+
+
+    .navbar {
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg,rgb(10, 15, 28),rgb(34, 46, 66));
+        padding: 12px 25px 12px 12px;
+        transition: margin-left 1s ease-in-out;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar .logo {
+        color: #facc15;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-right: auto;
+    }
+
+    .navbar ul {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        font-weight: 600;
+    }
+
+    .navbar ul li {
+        position: relative;
+        margin: 0 12px;
+        transition: all 0.3s ease;
+    }
+
+    .navbar ul li a {
+        color: #f1f5f9;
+        text-decoration: none;
+        padding: 10px 16px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+
+    .navbar ul li a:hover {
+        background-color: rgba(250, 204, 21, 0.15);
+        color: #facc15;
+        transform: scale(1.05);
+    }
+
+    .navbar ul li:hover {
+        transform: translateY(5px) scale(1.05);
+    }
+
+    .dropdown {
+        display: none;
+        position: absolute;
+        background: #1e293b;
+        min-width: 140px;
+        z-index: 1;
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        margin-top: 8px;
+    }
+
+    .dropdown a {
+        display: block;
+        color: #f1f5f9;
+        text-decoration: none;
+        padding: 10px 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .dropdown a:hover {
+        background-color: #475569;
+        color: #facc15;
+    }
+
+    .navbar ul li:hover .dropdown {
+        display: block;
+    }
+
+    .main-content {
+      padding: 80px 20px 20px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+
+
+    .active-nav {
+        background-color: #facc15;
+        color: #0f172a !important;
+        font-weight: bold;
+        box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.4);
+    }
+    
+    #navBtn {
+        display: none;
+        position: fixed;
+        top: -6rem;
+        width: 2.5rem;
+        height: 3rem;
+        background-color: transparent;
+        border: none;
+        color: #93c5fd;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: color 0.3s ease, transform 0.2s ease;
+        z-index: 1001;
+    }
+
+    #navBtn:hover {
+        color: #60a5fa;
+        transform: scale(1.1);
+    }
+
+     label {
+        margin-bottom: 6px;
+        font-size: 0.95rem;
+        font-weight: 600;
+    }
+
+    input, textarea {
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        width: 100%;
+        background-color: #fff;
+        color: #000;
+    }
+
+    input:focus, select:focus, textarea:focus {
+        outline: none;
+        border-color: #60a5fa;
+        background-color: #111827;
+        transform: scale(1.05);
+        color: #fcd34d;
+    }
+
+    .contact-container {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 15px;
+      justify-items: center;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      
+    }
+
+    form{
+        width: 70%;
+    }
+
+    .contact-info {
+      margin-top: 1.5rem;
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .contact-info h2 {
+      color: #facc15;
+      margin-bottom: 0.3rem;
+    }
+
+    .contact-info p {
+      margin: 0.5rem 0;
+    }
+
+    .social-icons {
+      margin-top: 1rem;
+    }
+
+    .social-icons a {
+      margin-right: 15px;
+      color: #f1f5f9;
+      font-size: 1.5rem;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: #facc15;
+      transform: scale(1.2);
+    }
+
+
+    @media (max-width: 1380px){
+            #navBtn{
+                margin-top: 6rem;
+            } 
+
+            .navbar{
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 780px) {
+
+            .main-container{
+                margin-top: 0;
+            }
+
+            #navBtn{
+                display: block;
+            }
+
+            .navbar{
+                margin-left: -300px;
+                height: 100%;
+                width: 35%;
+                position: absolute;
+                flex-wrap: wrap;
+                flex-direction: column;
+                z-index: 999;
+            }           
+            
+            .navbar .logo {
+                color: white;
+                font-family: impact;
+                margin-bottom: 2rem;
+            }
+            .navbar ul {
+                display: flex;
+                flex-direction: column;
+                gap: 2em;
+                justify-content: left;
+                list-style: none;
+                font-weight: bold;
+            }
+            .navbar ul li a {
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+            }
+            .navbar ul li a:hover {
+                background-color: #444; 
+            }
+            .dropdown {
+                margin-top: 0.5em;       
+            }
+            .dropdown a {
+                display: block;
+                margin-top: 0.5rem;
+                color: white;
+                text-decoration: none;
+            }
+            .dropdown a:hover {
+                background-color: #444; 
+            }
+            .navbar ul li:hover .dropdown {
+                display: block;
+            }
+
+
+
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            thead tr {
+                display: none;
+            }
+
+            td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                font-weight: bold;
+                text-align: left;
+            }
+
+            .action-btns {
+                display: flex;
+                justify-content: center;
+                gap: 5px;
+            }
+
+            .filter-section {
+              align-items: center;
+            }
+
+            select {
+                width: 80%;
+            }
+        }
+
+
+
+  </style>
+</head>
+<body>
+
+  <button onclick="showNav()" id="navBtn">☰</button>
+
+  <div class="navbar" id="navbar">
+    <div class="logo">
+      <img>
+    </div>
+    <ul>
+        <li><a href="dashboardAdmin.php"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+        <li><a href="accountsAdminAccess.php" ><i class="fas fa-users-cog"></i> Accounts</a></li>
+        <li><a href="profilesAdminAccess.php"><i class="fas fa-id-card"></i> Profiles</a></li>
+        <li><a href="campusesAdminAccess.php"><i class="fas fa-university"></i> Campuses</a></li>
+        <li><a href="gatesAdminAccess.php"><i class="fas fa-door-open"></i> Gates</a></li>
+        <li><a href="vehicleAdminAccess.php"><i class="fas fa-car"></i> Vehicles</a></li>
+        <li><a href="gatesAdminAccessLogs.php"><i class="fas fa-shield-alt"></i> Logs/Access</a></li>
+        <li>
+        <a><i class="fas fa-cog"></i> Settings</a>
+        <div class="dropdown">
+            <a href="accountAdmin.php"><i class="fas fa-user"></i> Account</a>
+            <a href="profileAdmin.php"><i class="fas fa-user-circle"></i> Profile</a>
+            <a href="aboutUs.html"><i class="fas fa-info-circle"></i> About</a>
+            <a href="contactUsAdmin.html"  class="active-nav"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="index.php"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+        </div>
+        </li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="contact-container">
+      <h1>Contact Us</h1>
+        <p style="margin-top: -10px; color: #d1d5db; font-size: 1rem;">
+            We'd love to hear from you. Please fill out the form below and we'll get back to you shortly.
+        </p>
+      <form id="contactForm" style="max-width: 600px; margin-top: 2rem;">
+        <div style="margin-bottom: 1rem;">
+          <label for="name">Name</label><br>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div style="margin-bottom: 1rem;">
+          <label for="email">Email</label><br>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div style="margin-bottom: 1rem;">
+          <label for="message">Message</label><br>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" style="padding: 10px 20px; background-color: #facc15; border: none; border-radius: 6px; font-weight: bold; color: #0f172a; cursor: pointer;">Send Message</button>
+      </form>
+    </div>
+
+    <div class="contact-info">
+      <h2>Other Ways to Reach Us</h2>
+      <p><i class="fas fa-phone"></i> 09363822369</p>
+      <p><i class="fas fa-envelope"></i> vehiclegatesystem@gmail.com</p>
+      <p><i class="fas fa-map-marker-alt"></i> 0585 Hagonoy, Bulacan</p>
+      
+      <div class="social-icons">
+        <a href="https://facebook.com/lims.1506" target="_blank"><i class="fab fa-facebook-square"></i></a>
+        <a href="https://instagram.com/limmzzzzz" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="mailto:limuelmartincamangon@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+  </div>
+  
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      Swal.fire({
+        title: 'Message Sent!',
+        text: 'Thank you for contacting us.',
+        icon: 'success',
+        confirmButtonColor: '#facc15'
+      });
+      this.reset();
+    });
+    </script>
+
+    <script>
+        listenToScreenSize();
+        
+        function showNav(){
+            const navBar = document.getElementById('navbar');
+
+            navBar.style.marginLeft = '0px';
+            document.body.addEventListener('click', closeNavOnClickOutside);
+        }
+
+        function closeNavOnClickOutside(e) {
+            const navBar = document.getElementById('navbar');
+            const navBtn = document.getElementById('navBtn');
+
+            if (!navBar.contains(e.target) && e.target !== navBtn) {
+                navBar.style.marginLeft = '-300px';
+
+                
+                document.body.removeEventListener('click', closeNavOnClickOutside);
+            }
+        }
+
+        function listenToScreenSize() {
+            const navBar = document.getElementById('navbar');
+
+            function handleResize() {
+                if (window.innerWidth >= 781) {
+                    navBar.style.marginLeft = '0px';
+                }
+                else{
+                    navBar.style.marginLeft = '-300px';
+                }
+            }
+
+            handleResize();
+
+            window.addEventListener('resize', handleResize);
+        }
+    </script>
+
+</body>
+</html
